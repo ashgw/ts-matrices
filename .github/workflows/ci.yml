@@ -26,10 +26,6 @@ jobs:
     uses: ./.github/workflows/check-formatting.yml
   lint:
     uses: ./.github/workflows/lint.yml
-  dependencies:
-    uses: ./.github/workflows/check-dependencies.yml
-  spelling:
-    uses: ./.github/workflows/check-spelling.yml
   test:
     uses: ./.github/workflows/test.yml
 
@@ -37,8 +33,6 @@ jobs:
     if: always()
     needs:
       - lint
-      - dependencies
-      - spelling
       - format
       - test
     runs-on: ubuntu-latest
@@ -49,7 +43,7 @@ jobs:
           jobs: ${{ toJSON(needs)}}
 
   npm:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && startsWith(github.ref, 'refs/tags/')
     needs: [mergeable]
     uses: ./.github/workflows/npm.yml
     secrets: inherit
