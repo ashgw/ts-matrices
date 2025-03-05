@@ -137,10 +137,10 @@ export type MinInTwoNumbers<
  *   [1, 2, 3],
  *   [4, 5, 6]
  * ];
- * ArrayTranspose<Matrix>; // Result: [[1, 4], [2, 5], [3, 6]]
+ * Transpose<Matrix>; // Result: [[1, 4], [2, 5], [3, 6]]
  * ```
  */
-export type ArrayTranspose<
+export type Transpose<
   M extends Primitive[][],
   N extends Primitive[] = M[0],
 > = M extends []

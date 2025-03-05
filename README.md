@@ -52,7 +52,7 @@ ArrayMin<[-54, 2, 0, 999, 69, 2]>; // Result: -54
 ArrayMin<[-54, -2, -90, -72, -69, -202]>; // Result: -202
 ```
 
-#### ArrayTranspose
+#### Transpose
 
 Transposes a matrix (2D array) by converting rows into columns and columns into rows.
 
@@ -62,7 +62,7 @@ type Matrix = [
   [1, 2, 3],
   [4, 5, 6]
 ];
-ArrayTranspose<Matrix>; // Result: [[1, 4], [2, 5], [3, 6]]
+Transpose<Matrix>; // Result: [[1, 4], [2, 5], [3, 6]]
 ```
 
 #### ArrayUnique
@@ -147,4 +147,3 @@ See [releases](https://github.com/ashgw/ts-matrices/releases).
 ## License
 
 [MIT](LICENSE)
-```
