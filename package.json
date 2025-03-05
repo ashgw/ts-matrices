@@ -1,6 +1,6 @@
 {
   "name": "ts-matrices",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "description": "Advanced type-level utilities for arrays, matrices, and numeric operations (filtering, intersection, transposition, and min/max).",
   "type": "module",
