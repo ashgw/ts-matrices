@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pr:
+    if: github.event_name == 'pull_request'
+    uses: ./.github/workflows/validate-pr-title.yml
+    secrets: inherit
+  format:
+    uses: ./.github/workflows/check-formatting.yml
+  lint:
+    uses: ./.github/workflows/lint.yml
+  dependencies:
+    uses: ./.github/workflows/check-dependencies.yml
+  spelling:
+    uses: ./.github/workflows/check-spelling.yml
+  test:
+    uses: ./.github/workflows/test.yml
+
+  mergeable:
+    if: always()
+    needs:
+      - lint
+      - dependencies
+      - spelling
+      - format
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: re-actors/alls-green@release/v1
+        id: all-green
+        with:
+          jobs: ${{ toJSON(needs)}}
+
+  docs:
+    if: github.ref == 'refs/heads/main'
+    needs: [mergeable]
+    uses: ./.github/workflows/docs.yml
+    secrets: inherit
+
+  npm:
+    if: github.ref == 'refs/heads/main'
+    needs: [mergeable]
+    uses: ./.github/workflows/npm.yml
+    secrets: inherit
