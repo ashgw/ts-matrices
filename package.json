@@ -1,8 +1,8 @@
 {
-  "name": "ts-roids",
-  "version": "1.42.0",
+  "name": "ts-matrices",
+  "version": "1.0.0",
   "private": false,
-  "description": "Bullet-proof TS even more",
+  "description": "Advanced type-level utilities for arrays, matrices, and numeric operations (filtering, intersection, transposition, and min/max)",
   "type": "module",
   "keywords": [
     "typescript",
