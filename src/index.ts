@@ -30,7 +30,7 @@ import type {
  * @hidden
  * only exported for tests
  */
-export type MinInTwoPositiveNums<
+export type MinInTwoPositiveNumbers<
   N1 extends Numeric,
   N2 extends Numeric,
   L extends any[] = [],
@@ -38,7 +38,7 @@ export type MinInTwoPositiveNums<
   ? L['length'] extends N1
     ? N1
     : N2
-  : MinInTwoPositiveNums<N1, N2, [-1, ...L]>;
+  : MinInTwoPositiveNumbers<N1, N2, [-1, ...L]>;
 
 /**
  * @example
@@ -48,13 +48,13 @@ export type MinInTwoPositiveNums<
  * @hidden
  * only exported for testing
  */
-export type MaxInTwoPositiveNums<
+export type MaxInTwoPositiveNumbers<
   A extends Numeric,
   B extends Numeric,
   A1 extends Numeric = A,
   B1 extends Numeric = B,
   areAllNegative extends boolean = false,
-> = A extends MinInTwoPositiveNums<A, B>
+> = A extends MinInTwoPositiveNumbers<A, B>
   ? areAllNegative extends true
     ? A1
     : B1
@@ -75,10 +75,10 @@ type CheckNumericString<
     ? BS extends `${infer L2 extends Numeric}${infer R2}`
       ? Equals<L1, L2> extends true
         ? CheckNumericString<A, B, AreNegative, A1, B1, R1, R2>
-        : MaxInTwoPositiveNums<L1, L2, A1, B1, AreNegative>
+        : MaxInTwoPositiveNumbers<L1, L2, A1, B1, AreNegative>
       : A1
     : A1
-  : Strlen<AS> extends MinInTwoPositiveNums<Strlen<AS>, Strlen<BS>>
+  : Strlen<AS> extends MinInTwoPositiveNumbers<Strlen<AS>, Strlen<BS>>
     ? AreNegative extends false
       ? B1
       : A1
