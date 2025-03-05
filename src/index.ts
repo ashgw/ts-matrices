@@ -12,17 +12,6 @@ import type {
 } from 'ts-roids';
 
 /**
- * @returns `true` if `T` is exactly of type `number`, otherwise `false`.
- * @example
- * ```ts
- * IsExactlyNumber<any | number>; // false
- * IsExactlyNumber<unknown | number>; // false
- * IsExactlyNumber<number>; // true
- * IsExactlyNumber<87>; // false
- * ```
- */
-
-/**
  * @example
  * ```ts
  * MinInTwoPositiveNumbers<2, 3>; // Result: 2
@@ -30,8 +19,6 @@ import type {
  * MinInTwoPositiveNumbers<54, 10000000>; // Result: 54
  * MinInTwoPositiveNumbers<0, 1>; // Result: 0
  * ```
- * @hidden
- * only exported for tests
  */
 export type MinInTwoPositiveNumbers<
   N1 extends Numeric,
@@ -51,8 +38,6 @@ export type MinInTwoPositiveNumbers<
  * MaxInTwoPositiveNumbers<54, 10000000>; // Result: 10000000
  * MaxInTwoPositiveNumbers<0, 1>; // Result: 1
  * ```
- * @hidden
- * only exported for testing
  */
 export type MaxInTwoPositiveNumbers<
   A extends Numeric,
@@ -99,8 +84,6 @@ type CheckNumericString<
  * MaxInTwoNumbers<54, -78>; // Result: 54
  * MaxInTwoNumbers<-999, -78>; // Result: -78
  * ```
- * @hidden
- * exported for tests, use `Max<Arr>` instead
  */
 export type MaxInTwoNumbers<
   A extends Numeric,
@@ -120,8 +103,6 @@ export type MaxInTwoNumbers<
  * MinInTwoNumbers<54, -78>; // Result: -78
  * MinInTwoNumbers<-999, -78>; // Result: -999
  * ```
- * @hidden
- * exported for tests, use `Min<Arr>` instead
  */
 export type MinInTwoNumbers<
   A extends Numeric,
