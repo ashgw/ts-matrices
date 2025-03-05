@@ -36,7 +36,6 @@
   "scripts": {
     "build": "pnpm run build:node",
     "build:node": "rimraf dist && rollup -c rollup.config.ts",
-    "build:docs": "typedoc src/index.ts",
     "hooks": "husky init",
     "test": "vitest --run",
     "test:watch": "vitest --watch",
