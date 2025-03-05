@@ -143,6 +143,9 @@ importers:
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@20.10.7)(typescript@5.3.3)
+      ts-roids:
+        specifier: 1.42.0
+        version: 1.42.0
       typedoc:
         specifier: 0.25.13
         version: 0.25.13(typescript@5.3.3)
@@ -4077,6 +4080,9 @@ packages:
         optional: true
       '@swc/wasm':
         optional: true
+
+  ts-roids@1.42.0:
+    resolution: {integrity: sha512-FsQhRdQ8Nc23WTV02qd5Xxzbe3V0T/Pky1+WWyASs9+pYM+rLfMHpmPAJ3abUgNv483BdhSSvH7h7KhuoLZLNg==}
 
   tsconfck@2.1.2:
     resolution: {integrity: sha512-ghqN1b0puy3MhhviwO2kGF8SeMDNhEbnKxjK7h6+fvY9JAxqvXi8y5NAHSQv687OVboS2uZIByzGd45/YxrRHg==}
@@ -8671,6 +8677,8 @@ snapshots:
       typescript: 5.3.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
+
+  ts-roids@1.42.0: {}
 
   tsconfck@2.1.2(typescript@5.3.3):
     optionalDependencies:
