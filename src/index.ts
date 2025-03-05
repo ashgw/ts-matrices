@@ -14,18 +14,21 @@ import type {
 /**
  * @returns `true` if `T` is exactly of type `number`, otherwise `false`.
  * @example
- * ````ts
-  IsExactlyNumber<any | number>; // false
-  IsExactlyNumber<unknown | number> // false
-  IsExactlyNumber<number> // true
-  IsExactlyNumber<87> // false
- * ````
+ * ```ts
+ * IsExactlyNumber<any | number>; // false
+ * IsExactlyNumber<unknown | number>; // false
+ * IsExactlyNumber<number>; // true
+ * IsExactlyNumber<87>; // false
+ * ```
  */
 
 /**
  * @example
  * ```ts
- * MinInTwoPositiveNums<21,0>; // Result: 0
+ * MinInTwoPositiveNumbers<2, 3>; // Result: 2
+ * MinInTwoPositiveNumbers<0, 0.00004>; // Result: 0
+ * MinInTwoPositiveNumbers<54, 10000000>; // Result: 54
+ * MinInTwoPositiveNumbers<0, 1>; // Result: 0
  * ```
  * @hidden
  * only exported for tests
@@ -43,7 +46,10 @@ export type MinInTwoPositiveNumbers<
 /**
  * @example
  * ```ts
- * MaxInTwoPositiveNums<21,0>; // Result: 21
+ * MaxInTwoPositiveNumbers<2, 3>; // Result: 3
+ * MaxInTwoPositiveNumbers<0, 0.00004>; // Result: 0.00004
+ * MaxInTwoPositiveNumbers<54, 10000000>; // Result: 10000000
+ * MaxInTwoPositiveNumbers<0, 1>; // Result: 1
  * ```
  * @hidden
  * only exported for testing
@@ -85,12 +91,13 @@ type CheckNumericString<
     : AreNegative extends false
       ? A1
       : B1;
+
 /**
  * Gets the max from two numeric values, regardless of the sign
  * @example
  * ```ts
- * _MaxInTwoNums<54,-78>; // Result: 54
- * _MaxInTwoNums<-999,-78>; // Result: -78
+ * MaxInTwoNumbers<54, -78>; // Result: 54
+ * MaxInTwoNumbers<-999, -78>; // Result: -78
  * ```
  * @hidden
  * exported for tests, use `Max<Arr>` instead
@@ -110,8 +117,8 @@ export type MaxInTwoNumbers<
  * Gets the min value from two numeric values, regardless of the sign
  * @example
  * ```ts
- * _MinInTwoNums<54,-78>; // Result: -78
- * _MinInTwoNums<-999,-78>; // Result: -999
+ * MinInTwoNumbers<54, -78>; // Result: -78
+ * MinInTwoNumbers<-999, -78>; // Result: -999
  * ```
  * @hidden
  * exported for tests, use `Min<Arr>` instead
@@ -152,16 +159,16 @@ export type Transpose<
     };
 
 /**
- * Represents a  type that filters elements from an array based on a given predicate  type.
+ * Represents a type that filters elements from an array based on a given predicate type.
  * @typeParam T The array to filter.
  * @typeParam P The predicate used for filtering elements from `T`.
  * @returns A new array type containing only the elements of `T` that match `P`.
  * @example
  * ```typescript
- *  ArrayFilter<[0, 1, 2, 3], 0 | 1>; // Results in [0, 1]
- *  ArrayFilter<[0, 1, 2], Falsy>; // Results in [0]
- *  ArrayFilter<['7', 1, 2], Falsy>; // Results in []
- *  ArrayFilter<['7', 1, 2, 7, 7, 7, 7], 7>; // Results in [7, 7, 7, 7]
+ * ArrayFilter<[0, 1, 2, 3], 0 | 1>; // Results in [0, 1]
+ * ArrayFilter<[0, 1, 2], Falsy>; // Results in [0]
+ * ArrayFilter<['7', 1, 2], Falsy>; // Results in []
+ * ArrayFilter<['7', 1, 2, 7, 7, 7, 7], 7>; // Results in [7, 7, 7, 7]
  * ```
  */
 export type ArrayFilter<T extends unknown[], P> = T extends [
@@ -172,14 +179,15 @@ export type ArrayFilter<T extends unknown[], P> = T extends [
     ? [S, ...ArrayFilter<E, P>]
     : ArrayFilter<E, P>
   : [];
+
 /**
- * A  type that constructs a new array containing only unique elements from a given array type.
- * @typeParam T The input array  type from which unique elements are extracted.
+ * A type that constructs a new array containing only unique elements from a given array type.
+ * @typeParam T The input array type from which unique elements are extracted.
  * @example
  * ```typescript
- *  type UArr = UniqueArray<
-  [unknown, unknown, 'foo', any, never, never, '33', 33, '33']
->; // =>  [unknown, 'foo', any, never, '33', 33]
+ * type UArr = UniqueArray<
+ *   [unknown, unknown, 'foo', any, never, never, '33', 33, '33']
+ * >; // =>  [unknown, 'foo', any, never, '33', 33]
  * ```
  */
 export type ArrayUnique<T, R extends unknown[] = []> = T extends [
@@ -195,8 +203,8 @@ export type ArrayUnique<T, R extends unknown[] = []> = T extends [
  * Extracts the maximum numeric value in a given Array
  * @example
  * ```ts
- * Max<[-54,2,0,999,69,2]>; // Result: 999
- * Max<[-54,-2,-90,-72,-69,-202]>; // Result: -2
+ * ArrayMax<[-54, 2, 0, 999, 69, 2]>; // Result: 999
+ * ArrayMax<[-54, -2, -90, -72, -69, -202]>; // Result: -2
  * ```
  */
 export type ArrayMax<
@@ -215,8 +223,8 @@ export type ArrayMax<
  * Extracts the minimum numeric value in a given Array
  * @example
  * ```ts
- * Max<[-54,2,0,999,69,2]>; // Result: -54
- * Max<[-54,-2,-90,-72,-69,-202]>; // Result: -202
+ * ArrayMin<[-54, 2, 0, 999, 69, 2]>; // Result: -54
+ * ArrayMin<[-54, -2, -90, -72, -69, -202]>; // Result: -202
  * ```
  */
 export type ArrayMin<
@@ -235,9 +243,9 @@ export type ArrayMin<
  * Checks if a given type is in an array type
  * @example
  * ```ts
- * ArrayIncludes<[bigint, true, 2, 3, 5, 6, 'seven'], true> // Result: true
+ * ArrayIncludes<[bigint, true, 2, 3, 5, 6, 'seven'], true>; // Result: true
  *
- * type T = NewType<'T',string >;
+ * type T = NewType<'T', string>;
  * ArrayIncludes<[T, 2, 3, 5, 6, 7], string>; // Result: false
  * ArrayIncludes<[string, 2, 3, 5, 6, 7], string>; // Result: true
  * ```
@@ -249,16 +257,17 @@ export type ArrayIncludes<Arr, P> = Arr extends [infer S, ...infer E]
     ? true
     : ArrayIncludes<E, P>
   : false;
+
 /**
  * Calculates the intersection of the types within an array `Arr` of tuple types.
  * @returns
  * The types that repeat, if exists
  * @example
- * ````ts
- ArrayIntersection<[[1, 0, 1], [0, 1, -1], [0, 0, 1]]>; // 0 | 1
- ArrayIntersection<[[1, 0], [0, 1], [0, 0]]>; // 0
- ArrayIntersection<[[1, 0], [-1, -1], [-8, -9]]> // never
- * ````
+ * ```ts
+ * ArrayIntersection<[[1, 0, 1], [0, 1, -1], [0, 0, 1]]>; // 0 | 1
+ * ArrayIntersection<[[1, 0], [0, 1], [0, 0]]>; // 0
+ * ArrayIntersection<[[1, 0], [-1, -1], [-8, -9]]>; // never
+ * ```
  */
 export type ArrayIntersection<Arr extends unknown[]> = Arr extends [
   infer S,
